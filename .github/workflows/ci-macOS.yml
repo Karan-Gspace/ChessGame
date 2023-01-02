@@ -1,0 +1,13 @@
+name: macOS
+
+on:
+    push:
+        branches: [development, main]
+    pull_request:
+        branches: [development, main]
+
+jobs:
+
+    macOS:
+        uses: gilmourspace/workflows/.github/workflows/macOS-ci-swift.yml@v1
+        secrets: inherit

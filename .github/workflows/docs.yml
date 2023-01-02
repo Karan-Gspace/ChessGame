@@ -1,0 +1,13 @@
+name: Generate Documentation
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+
+    docs:
+        uses: gilmourspace/workflows/.github/workflows/linux-docs-swift.yml@v1
+        secrets:
+            TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            DEPLOYSSHSECRET: ${{ secrets.DEPLOYSSHSECRET }}
