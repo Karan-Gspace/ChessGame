@@ -5,21 +5,42 @@
 /// move throughout the board by two oponents, black and white. The GameBoard
 /// contains a board matrix for monitoring the active pieces on the chess board.
 /// The GameBoard also contains pieces in the graveyard for inactive pieces.
-struct GameBoard {
+public struct GameBoard {
 
     /// Definition of the 8 x 8 chess board containing active pieces.
-    var board[[String]] = [
-        ["_", "_", "_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_", "_", "_"]
-    ]
+    public var board: [[String]]
+
+    /// Displays the current state of the chess board.
+    public var display: String {
+        var displayBoard = ""
+        for row in board {
+            var displayRow = ""
+            displayRow += row[0]
+            for square in row[..<board.endIndex] {
+                displayRow += " " + square
+            }
+        displayRow += " \(row[board.endIndex - 1])\n"
+        displayBoard += displayRow
+        }
+        return displayBoard
+    }
 
     /// Definition of the array containing inactive pieces.
-    var graveyard: [Pieces] = []
+    private var graveyard: [Pieces] = []
+
+    /// Creates a new GameBoard.
+    public init() {
+        /// Definition of the 8 x 8 chess board containing active pieces.
+        self.board = [
+            ["_", "_", "_", "_", "_", "_", "_", "_"],
+            ["_", "_", "_", "_", "_", "_", "_", "_"],
+            ["_", "_", "_", "_", "_", "_", "_", "_"],
+            ["_", "_", "_", "_", "_", "_", "_", "_"],
+            ["_", "_", "_", "_", "_", "_", "_", "_"],
+            ["_", "_", "_", "_", "_", "_", "_", "_"],
+            ["_", "_", "_", "_", "_", "_", "_", "_"],
+            ["_", "_", "_", "_", "_", "_", "_", "_"]
+        ]
+    }
 
 }
