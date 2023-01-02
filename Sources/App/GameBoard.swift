@@ -43,19 +43,4 @@ public struct GameBoard {
         ]
     }
 
-    // public mutating func getDisplay() -> String {
-    //     // print(board)
-    //     var displayBoard = ""
-    //     for row in self.board {
-    //         var displayRow = ""
-    //         displayRow += row[0]
-    //         for square in row[1..<row.endIndex - 1] {
-    //             displayRow += " " + square
-    //         }
-    //     displayRow += " \(row[board.endIndex - 1])\n"
-    //     displayBoard += displayRow
-    //     }
-    //     return displayBoard
-    // }
-
 }
