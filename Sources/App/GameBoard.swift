@@ -13,10 +13,10 @@ public struct GameBoard {
     /// Displays the current state of the chess board.
     public var display: String {
         var displayBoard = ""
-        for row in board {
+        for row in self.board {
             var displayRow = ""
             displayRow += row[0]
-            for square in row[..<board.endIndex] {
+            for square in row[1..<row.endIndex - 1] {
                 displayRow += " " + square
             }
         displayRow += " \(row[board.endIndex - 1])\n"
@@ -42,5 +42,20 @@ public struct GameBoard {
             ["_", "_", "_", "_", "_", "_", "_", "_"]
         ]
     }
+
+    // public mutating func getDisplay() -> String {
+    //     // print(board)
+    //     var displayBoard = ""
+    //     for row in self.board {
+    //         var displayRow = ""
+    //         displayRow += row[0]
+    //         for square in row[1..<row.endIndex - 1] {
+    //             displayRow += " " + square
+    //         }
+    //     displayRow += " \(row[board.endIndex - 1])\n"
+    //     displayBoard += displayRow
+    //     }
+    //     return displayBoard
+    // }
 
 }
