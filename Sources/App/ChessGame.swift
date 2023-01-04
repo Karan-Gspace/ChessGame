@@ -1,3 +1,4 @@
+import Foundation
 /// The chess board is responsible for keeping track of pieces left standing and
 /// pieces removed off the board.
 ///
@@ -11,10 +12,10 @@ public struct ChessGame {
     public var board: [[String]]
 
     /// Defintion of a checkmate.
-    public var checkMate: Bool = false
+    public var checkMate = false
 
     /// Definition of a check.
-    public var check: Bool = false
+    public var check = false
 
     /// Displays the current state of the chess board.
     public var display: String {
@@ -50,6 +51,23 @@ public struct ChessGame {
         let whiteArmy = createArmy(.white)
         let blackArmy = createArmy(.black)
         insertArmiesOntoBoard(whiteArmy, blackArmy)
+    }
+
+    /// Move chess piece on the board function.
+    ///
+    /// - Parameter playerInput: 
+    public func move(_ playerInput: String) {
+        let start = playerInput.startIndex
+        let firstBreak = playerInput.index(start, offsetBy: 3)
+        let secondBreak = playerInput.index(start, offsetBy: 5)
+        let command = playerInput[start]
+        let source = playerInput[playerInput.index(after: start)..<firstBreak]
+        let destination = playerInput[secondBreak...]
+
+        // TODO:
+        // Maps alphabet to enum with raw values
+        // change currentPosition of the chess piece
+        // update the board
     }
 
     private func createArmy(_ colour: PlayerColour) -> [ChessPiece] {

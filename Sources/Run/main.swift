@@ -13,5 +13,6 @@ while !game.checkMate {
     print(game.display)
     playerMove = readLine()!
     print("Player's Move is \(playerMove)")
+    game.move(playerMove)
     print("\n")
 }
