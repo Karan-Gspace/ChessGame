@@ -43,7 +43,7 @@ struct ChessPiece: PiecesProtocol {
     ///
     /// - Parameter name: The name of the chess piece.
     /// - Paremeter colour: The player which this chess piece belongs to.
-    private init(
+    init(
         name: ChessPieceType,
         colour: PlayerColour,
         tag: String,

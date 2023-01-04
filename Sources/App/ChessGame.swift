@@ -60,12 +60,12 @@ public struct ChessGame {
         let knights = ChessPiece.createKnights(colour: colour)
         let rooks = ChessPiece.createRooks(colour: colour)
         let pawns = ChessPiece.createPawns(colour: colour)
-        blackArmy.append(king)
-        blackArmy.append(queen)
-        blackArmy.append(contentsOf: bishops)
-        blackArmy.append(contentsOf: knights)
-        blackArmy.append(contentsOf: rooks)
-        blackArmy.append(contentsOf: pawns)
+        army.append(king)
+        army.append(queen)
+        army.append(contentsOf: bishops)
+        army.append(contentsOf: knights)
+        army.append(contentsOf: rooks)
+        army.append(contentsOf: pawns)
         return army
     }
 
