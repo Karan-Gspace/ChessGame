@@ -15,9 +15,8 @@ DONE - Display pieces on the game board
 	DONE - Create armies (black, white)
 	DONE - Insert armies into the board
 
-	- Create Chess Pieces tests (init, gettersAndSetters, Equality, mock test)
-	- Create Position tests (init, gettersAndSetters, Equality)
-	- Create PlayerColour tests (init, gettersAndSetters, Equality)
+	- Create Chess Pieces tests (init, gettersAndSetters, Equality)
+	DONE - Create Position tests (init, gettersAndSetters, Equality)
 
 
 - move pieces on the game board

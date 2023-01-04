@@ -53,7 +53,7 @@ public struct ChessGame {
     }
 
     private func createArmy(_ colour: PlayerColour) -> [ChessPiece] {
-        var blackArmy: [ChessPiece] = []
+        var army: [ChessPiece] = []
         let king = ChessPiece.createKing(colour: colour)
         let queen = ChessPiece.createQueen(colour: colour)
         let bishops = ChessPiece.createBishops(colour: colour)
@@ -66,7 +66,7 @@ public struct ChessGame {
         blackArmy.append(contentsOf: knights)
         blackArmy.append(contentsOf: rooks)
         blackArmy.append(contentsOf: pawns)
-        return blackArmy
+        return army
     }
 
     private mutating func insertArmiesOntoBoard(
