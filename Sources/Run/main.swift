@@ -4,8 +4,12 @@ import Foundation
 /// chess game created.
 var game = Game()
 
+/// Waiting for player's move.
+var playerMove: String
+
 /// Runs main Application.
-while true {
+while !game.checkMate {
     print(game.display)
-    sleep(1)
+    playerMove = readLine()!
+    print("Player's Move is \(playerMove)")
 }
