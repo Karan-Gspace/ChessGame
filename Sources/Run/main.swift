@@ -7,6 +7,7 @@ var game = Game()
 /// Waiting for player's move.
 var playerMove: String
 
+print("\n")
 /// Runs main Application.
 while !game.checkMate {
     print(game.display)
