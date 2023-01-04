@@ -171,8 +171,8 @@ struct ChessPiece: PiecesProtocol {
         ]
     }
 
-    /// Function which creates the two knight Chess pieces and where it should be on the
-    /// board.
+    /// Function which creates the two knight Chess pieces and where it should
+    /// be on the board.
     ///
     /// - Parameter colour: The colour of which the knight pieces belongs to.
     /// - Returns: An array of the two Knights.
@@ -213,84 +213,39 @@ struct ChessPiece: PiecesProtocol {
     public static func createPawns(
         colour: PlayerColour
     ) -> [ChessPiece] {
-        var position1: Position = Position(0, 0)
-        var position2: Position = Position(0, 0)
-        var position3: Position = Position(0, 0)
-        var position4: Position = Position(0, 0)
-        var position5: Position = Position(0, 0)
-        var position6: Position = Position(0, 0)
-        var position7: Position = Position(0, 0)
-        var position8: Position = Position(0, 0)
-        if colour == PlayerColour.black {
-            position1 = Position(1, 0)
-            position2 = Position(1, 1)
-            position3 = Position(1, 2)
-            position4 = Position(1, 3)
-            position5 = Position(1, 4)
-            position6 = Position(1, 5)
-            position7 = Position(1, 6)
-            position8 = Position(1, 7)
-
-        } else if colour == PlayerColour.white {
-            position1 = Position(6, 0)
-            position2 = Position(6, 1)
-            position3 = Position(6, 2)
-            position4 = Position(6, 3)
-            position5 = Position(6, 4)
-            position6 = Position(6, 5)
-            position7 = Position(6, 6)
-            position8 = Position(6, 7)
+        var pawns: [ChessPiece] = []
+        var position = Position(0, 0)
+        var validMoves: [Position] = []
+        if colour == PlayerColour.white {
+            for i in 0..<8 {
+                position = Position(1, i)
+                validMoves.append(contentsOf: [Position(2, i), Position(3, i)])
+                pawns.append(
+                    ChessPiece(
+                        name: .pawn,
+                        colour: colour,
+                        tag: ChessPiece.ChessPieceType.pawn.rawValue,
+                        validMoves: validMoves,
+                        currentPosition: position
+                    )
+                )
+            }
+        } else if colour == PlayerColour.black {
+            for i in 0..<8 {
+                position = Position(6, i)
+                validMoves.append(contentsOf: [Position(4, i), Position(5, i)])
+                pawns.append(
+                    ChessPiece(
+                        name: .pawn,
+                        colour: colour,
+                        tag: ChessPiece.ChessPieceType.pawn.rawValue,
+                        validMoves: validMoves,
+                        currentPosition: position
+                    )
+                )
+            }
         }
-        return [
-            ChessPiece(
-                name: .pawn,
-                colour: colour,
-                tag: ChessPieceType.pawn.rawValue,
-                currentPosition: position1
-            ),
-            ChessPiece(
-                name: .pawn,
-                colour: colour,
-                tag: ChessPieceType.pawn.rawValue,
-                currentPosition: position2
-            ),
-            ChessPiece(
-                name: .pawn,
-                colour: colour,
-                tag: ChessPieceType.pawn.rawValue,
-                currentPosition: position3
-            ),
-            ChessPiece(
-                name: .pawn,
-                colour: colour,
-                tag: ChessPieceType.pawn.rawValue,
-                currentPosition: position4
-            ),
-            ChessPiece(
-                name: .pawn,
-                colour: colour,
-                tag: ChessPieceType.pawn.rawValue,
-                currentPosition: position5
-            ),
-            ChessPiece(
-                name: .pawn,
-                colour: colour,
-                tag: ChessPieceType.pawn.rawValue,
-                currentPosition: position6
-            ),
-            ChessPiece(
-                name: .pawn,
-                colour: colour,
-                tag: ChessPieceType.pawn.rawValue,
-                currentPosition: position7
-            ),
-            ChessPiece(
-                name: .pawn,
-                colour: colour,
-                tag: ChessPieceType.pawn.rawValue,
-                currentPosition: position8
-            )
-        ]
+        return pawns
     }
 
 }
