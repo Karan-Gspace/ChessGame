@@ -20,3 +20,7 @@ DONE - Display pieces on the game board
 
 
 - move pieces on the game board
+
+- Game states (check, checkMate, resign, errorStates)
+- Improve the display and refactor.
+- Add more unit tests
