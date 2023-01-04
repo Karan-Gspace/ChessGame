@@ -111,8 +111,8 @@ struct ChessPiece: PiecesProtocol {
     public static func createBishops(
         colour: PlayerColour
     ) -> [ChessPiece] {
-        var leftStartingPosition: Position = Position(0, 0)
-        var rightStartingPosition: Position = Position(0, 0)
+        var leftStartingPosition = Position(0, 0)
+        var rightStartingPosition = Position(0, 0)
         if colour == PlayerColour.black {
             leftStartingPosition = Position(0, 2)
             rightStartingPosition = Position(0, 5)
@@ -145,27 +145,39 @@ struct ChessPiece: PiecesProtocol {
     public static func createKnights(
         colour: PlayerColour
     ) -> [ChessPiece] {
-        var leftStartingPosition: Position = Position(0, 0)
-        var rightStartingPosition: Position = Position(0, 0)
+        var leftStartingPosition = Position(0, 0)
+        var leftValidMoves: [Position] = []
+        var rightStartingPosition = Position(0, 0)
+        var rightValidMoves: [Position] = []
         if colour == PlayerColour.black {
             leftStartingPosition = Position(0, 1)
+            leftValidMoves.append(Position(2, 0))
+            leftValidMoves.append(Position(2, 2))
             rightStartingPosition = Position(0, 6)
+            rightValidMoves.append(Position(2, 5))
+            rightValidMoves.append(Position(2, 7))
 
         } else if colour == PlayerColour.white {
             leftStartingPosition = Position(7, 1)
+            leftValidMoves.append(Position(5, 2))
+            leftValidMoves.append(Position(5, 0))
             rightStartingPosition = Position(7, 6)
+            rightValidMoves.append(Position(5, 5))
+            rightValidMoves.append(Position(5, 7))
         }
         return [
             ChessPiece(
                 name: .knight,
                 colour: colour,
                 tag: ChessPieceType.knight.rawValue,
+                validMoves: leftValidMoves,
                 currentPosition: leftStartingPosition
             ),
             ChessPiece(
                 name: .knight,
                 colour: colour,
                 tag: ChessPieceType.knight.rawValue,
+                validMoves: rightValidMoves,
                 currentPosition: rightStartingPosition
             )
         ]
@@ -179,8 +191,8 @@ struct ChessPiece: PiecesProtocol {
     public static func createRooks(
         colour: PlayerColour
     ) -> [ChessPiece] {
-        var leftStartingPosition: Position = Position(0, 0)
-        var rightStartingPosition: Position = Position(0, 0)
+        var leftStartingPosition = Position(0, 0)
+        var rightStartingPosition = Position(0, 0)
         if colour == PlayerColour.black {
             leftStartingPosition = Position(0, 0)
             rightStartingPosition = Position(0, 7)
