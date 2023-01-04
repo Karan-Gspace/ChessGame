@@ -58,6 +58,33 @@ final class ChessPiecesTests: XCTestCase {
     }
 
     /// Test getters and setters.
-    func testGettersAndSetters() throws {}
+    func testGettersAndSetters() throws {
+        let name = ChessPiece.ChessPieceType.pawn
+        let colour = PlayerColour.black
+        let tag = "p"
+        let validMoves: [Position] = []
+        let posX = 0
+        let posY = 0
+        var piece = ChessPiece(
+            name: .pawn,
+            colour: .black,
+            tag: ChessPiece.ChessPieceType.pawn.rawValue,
+            currentPosition: Position(0, 0)
+        )
+        XCTAssertEqual(piece.name, name)
+        XCTAssertEqual(piece.colour, colour)
+        XCTAssertEqual(piece.currentPosition.x, posX)
+        XCTAssertEqual(piece.currentPosition.y, posY)
+        XCTAssertEqual(piece.tag, tag)
+        XCTAssertEqual(piece.validMoves, validMoves)
+        let newValidMoves: [Position] = [Position(2, 2)]
+        let newPosX = 2
+        let newPosY = 2
+        piece.validMoves = [Position(2, 2)]
+        piece.currentPosition = Position(2, 2)
+        XCTAssertEqual(piece.currentPosition.x, newPosX)
+        XCTAssertEqual(piece.currentPosition.y, newPosY)
+        XCTAssertEqual(piece.validMoves, newValidMoves)
+    }
 
 }
