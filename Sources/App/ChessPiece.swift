@@ -15,7 +15,7 @@ struct ChessPiece: PiecesProtocol {
         /// Queen piece
         case queen = "Q"
         /// Bishop piece
-        case bishop = "B"
+        case bishop = "b"
         /// Knight piece
         case knight = "k"
         /// Rook piece
