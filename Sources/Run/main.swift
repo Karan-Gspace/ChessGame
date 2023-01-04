@@ -2,7 +2,7 @@ import App
 import Foundation
 
 /// chess game created.
-var game = GameBoard()
+var game = Game()
 
 /// Runs main Application.
 while true {
