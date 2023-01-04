@@ -34,7 +34,7 @@ public struct Game {
     /// Definition of the array containing inactive pieces.
     private var graveyard: [ChessPiece] = []
 
-    /// Creates a new GameBoard.
+    /// Creates a new Game.
     public init() {
         /// Definition of the 8 x 8 chess board containing active pieces.
         self.board = [
@@ -47,6 +47,43 @@ public struct Game {
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"]
         ]
+        /// Create white army
+        let whiteArmy = createArmy(.white)
+        /// Create black army
+        let blackArmy = createArmy(.black)
+        /// Insert armies onto the board.
+        insertArmiesOntoBoard(whiteArmy, blackArmy)
+    }
+
+    private func createArmy(_ colour: PlayerColour) -> [ChessPiece] {
+        var blackArmy: [ChessPiece] = []
+        let king = ChessPiece.createKing(colour: colour)
+        let queen = ChessPiece.createQueen(colour: colour)
+        let bishops = ChessPiece.createBishops(colour: colour)
+        let knights = ChessPiece.createKnights(colour: colour)
+        let rooks = ChessPiece.createRooks(colour: colour)
+        let pawns = ChessPiece.createPawns(colour: colour)
+        blackArmy.append(king)
+        blackArmy.append(queen)
+        blackArmy.append(contentsOf: bishops)
+        blackArmy.append(contentsOf: knights)
+        blackArmy.append(contentsOf: rooks)
+        blackArmy.append(contentsOf: pawns)
+        return blackArmy
+    }
+
+    private mutating func insertArmiesOntoBoard(
+        _ whiteArmy: [ChessPiece],
+        _ blackArmy: [ChessPiece]
+        ) {
+        // Insert White army onto board
+        for piece in whiteArmy {
+            self.board[piece.currentPosition.x][piece.currentPosition.y] = piece.tag
+        }
+        // Insert White army onto board
+        for piece in blackArmy {
+            self.board[piece.currentPosition.x][piece.currentPosition.y] = piece.tag
+        }
     }
 
 }
