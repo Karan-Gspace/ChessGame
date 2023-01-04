@@ -21,6 +21,8 @@ final class GameTests: XCTestCase {
             ["_", "_", "_", "_", "_", "_", "_", "_"]
         ]
         XCTAssertEqual(gameTest.board, board)
+        XCTAssertFalse(gameTest.check)
+        XCTAssertFalse(gameTest.checkMate)
     }
 
     /// Tests Equality.
@@ -29,9 +31,15 @@ final class GameTests: XCTestCase {
         var gameTest2 = Game()
         XCTAssertEqual(gameTest.board, gameTest2.board)
         XCTAssertEqual(gameTest.display, gameTest2.display)
+        XCTAssertEqual(gameTest.checkMate, gameTest2.checkMate)
+        XCTAssertEqual(gameTest.check, gameTest2.check)
         gameTest2.board[0][1] = "X"
+        gameTest2.checkMate = true
+        gameTest2.check = true
         XCTAssertNotEqual(gameTest.board, gameTest2.board)
         XCTAssertNotEqual(gameTest.display, gameTest2.display)
+        XCTAssertNotEqual(gameTest.checkMate, gameTest2.checkMate)
+        XCTAssertNotEqual(gameTest.check, gameTest2.check)
     }
 
     /// Tests Getters and Setters.
@@ -50,6 +58,8 @@ final class GameTests: XCTestCase {
         let display = String(repeating: "_ _ _ _ _ _ _ _\n", count: 8)
         XCTAssertEqual(gameTest.board, board)
         XCTAssertEqual(gameTest.display, display)
+        XCTAssertFalse(gameTest.checkMate)
+        XCTAssertFalse(gameTest.check)
         let newBoard = [
             ["X", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
@@ -62,8 +72,12 @@ final class GameTests: XCTestCase {
         ]
         let newDisplay = "X _ _ _ _ _ _ _\n" + String(repeating: "_ _ _ _ _ _ _ _\n", count: 7)
         gameTest.board[0][0] = "X"
+        gameTest.checkMate = true
+        gameTest.check = true
         XCTAssertEqual(gameTest.board, newBoard)
         XCTAssertEqual(gameTest.display, newDisplay)
+        XCTAssertTrue(gameTest.check)
+        XCTAssertTrue(gameTest.checkMate)
     }
  
 }
