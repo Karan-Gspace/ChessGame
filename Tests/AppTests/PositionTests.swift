@@ -30,7 +30,7 @@ final class PositionTests: XCTestCase {
     func testGettersAndSetters() throws {
         let xInput = 0
         let yInput = 0
-        let position = Position(0, 0)
+        var position = Position(0, 0)
         XCTAssertEqual(position.x, xInput)
         XCTAssertEqual(position.y, yInput)
         let newXInput = 1
