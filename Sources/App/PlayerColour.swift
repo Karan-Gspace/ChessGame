@@ -6,4 +6,5 @@ enum PlayerColour {
 
     /// Definition of the white set of chess pieces.
     case white
+
 }

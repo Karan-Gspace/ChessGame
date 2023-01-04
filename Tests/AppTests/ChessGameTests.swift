@@ -83,5 +83,5 @@ final class GameTests: XCTestCase {
         XCTAssertTrue(gameTest.check)
         XCTAssertTrue(gameTest.checkMate)
     }
- 
+
 }
