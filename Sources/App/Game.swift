@@ -5,7 +5,7 @@
 /// move throughout the board by two oponents, black and white. The GameBoard
 /// contains a board matrix for monitoring the active pieces on the chess board.
 /// The GameBoard also contains pieces in the graveyard for inactive pieces.
-public struct GameBoard {
+public struct Game {
 
     /// Definition of the 8 x 8 chess board containing active pieces.
     public var board: [[String]]
@@ -26,7 +26,7 @@ public struct GameBoard {
     }
 
     /// Definition of the array containing inactive pieces.
-    private var graveyard: [Pieces] = []
+    private var graveyard: [ChessPiece] = []
 
     /// Creates a new GameBoard.
     public init() {

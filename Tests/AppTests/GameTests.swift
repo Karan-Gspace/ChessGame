@@ -5,11 +5,11 @@ import XCTest
 import class Foundation.Bundle
 
 /// Tests for the Game Board.
-final class GameBoardTests: XCTestCase {
+final class GameTests: XCTestCase {
 
     /// Test Initializer
     func testInit() throws {
-        let gameTest = GameBoard()
+        let gameTest = Game()
         let board = [
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
@@ -25,8 +25,8 @@ final class GameBoardTests: XCTestCase {
 
     /// Tests Equality.
     func testEquality() throws {
-        let gameTest = GameBoard()
-        var gameTest2 = GameBoard()
+        let gameTest = Game()
+        var gameTest2 = Game()
         XCTAssertEqual(gameTest.board, gameTest2.board)
         XCTAssertEqual(gameTest.display, gameTest2.display)
         gameTest2.board[0][1] = "X"
@@ -36,7 +36,7 @@ final class GameBoardTests: XCTestCase {
 
     /// Tests Getters and Setters.
     func testGettersAndSetters() throws {
-        var gameTest = GameBoard()
+        var gameTest = Game()
         let board = [
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
