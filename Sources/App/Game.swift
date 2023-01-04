@@ -47,11 +47,8 @@ public struct Game {
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"]
         ]
-        /// Create white army
         let whiteArmy = createArmy(.white)
-        /// Create black army
         let blackArmy = createArmy(.black)
-        /// Insert armies onto the board.
         insertArmiesOntoBoard(whiteArmy, blackArmy)
     }
 
@@ -76,11 +73,9 @@ public struct Game {
         _ whiteArmy: [ChessPiece],
         _ blackArmy: [ChessPiece]
         ) {
-        // Insert White army onto board
         for piece in whiteArmy {
             self.board[piece.currentPosition.x][piece.currentPosition.y] = piece.tag
         }
-        // Insert White army onto board
         for piece in blackArmy {
             self.board[piece.currentPosition.x][piece.currentPosition.y] = piece.tag
         }
