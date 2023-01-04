@@ -10,6 +10,12 @@ public struct Game {
     /// Definition of the 8 x 8 chess board containing active pieces.
     public var board: [[String]]
 
+    /// Defintion of a checkmate.
+    public var checkMate: Bool = false
+
+    /// Definition of a check.
+    public var check: Bool = false
+
     /// Displays the current state of the chess board.
     public var display: String {
         var displayBoard = ""
