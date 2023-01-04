@@ -35,6 +35,18 @@ public struct ChessGame {
     /// Definition of the array containing inactive pieces.
     private var graveyard: [ChessPiece] = []
 
+    private let alphabetToNum: [String: Int]
+    = [
+        "a": 0,
+        "b": 1,
+        "c": 2,
+        "e": 3,
+        "f": 4,
+        "g": 5,
+        "h": 6,
+        "i": 7
+    ]
+
     /// Creates a new Chess Game.
     public init() {
         /// Definition of the 8 x 8 chess board containing active pieces.
@@ -61,13 +73,16 @@ public struct ChessGame {
         let firstBreak = playerInput.index(start, offsetBy: 3)
         let secondBreak = playerInput.index(start, offsetBy: 5)
         let command = playerInput[start]
-        let source = playerInput[playerInput.index(after: start)..<firstBreak]
-        let destination = playerInput[secondBreak...]
+        let source = String(playerInput[playerInput.index(after: start)..<firstBreak])
+        let destination = String(playerInput[secondBreak...])
 
-        // TODO:
-        // Maps alphabet to enum with raw values
-        // change currentPosition of the chess piece
-        // update the board
+
+    }
+
+    private func convertAlphabetToCoordinates(inputPosition: String) -> Position {
+        let xCoord = alphabetToNum[String(inputPosition[inputPosition.startIndex])]
+        let yCoord = Int(String(inputPosition[inputPosition.index(after: inputPosition.startIndex)]))
+        return Position(xCoord!, yCoord!)
     }
 
     private func createArmy(_ colour: PlayerColour) -> [ChessPiece] {

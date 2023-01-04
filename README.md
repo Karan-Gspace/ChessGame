@@ -18,9 +18,9 @@ DONE - Display pieces on the game board
 	DONE - Create Chess Pieces tests (init, gettersAndSetters, Equality)
 	DONE - Create Position tests (init, gettersAndSetters, Equality)
 
-
 - move pieces on the game board
-	- Get user input and decode it
+
+	DONE - Get user input and decode it
 	- update chess piece current position
 	- update the board
 
