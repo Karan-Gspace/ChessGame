@@ -9,16 +9,16 @@ final class GameTests: XCTestCase {
 
     /// Test Initializer
     func testInit() throws {
-        let gameTest = Game()
+        let gameTest = ChessGame()
         let board = [
+            ["r", "k", "b", "Q", "K", "b", "k", "r"],
+            ["p", "p", "p", "p", "p", "p", "p", "p"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"]
+            ["p", "p", "p", "p", "p", "p", "p", "p"],
+            ["r", "k", "b", "Q", "K", "b", "k", "r"]
         ]
         XCTAssertEqual(gameTest.board, board)
         XCTAssertFalse(gameTest.check)
@@ -27,8 +27,8 @@ final class GameTests: XCTestCase {
 
     /// Tests Equality.
     func testEquality() throws {
-        let gameTest = Game()
-        var gameTest2 = Game()
+        let gameTest = ChessGame()
+        var gameTest2 = ChessGame()
         XCTAssertEqual(gameTest.board, gameTest2.board)
         XCTAssertEqual(gameTest.display, gameTest2.display)
         XCTAssertEqual(gameTest.checkMate, gameTest2.checkMate)
@@ -44,33 +44,37 @@ final class GameTests: XCTestCase {
 
     /// Tests Getters and Setters.
     func testGettersAndSetters() throws {
-        var gameTest = Game()
+        var gameTest = ChessGame()
         let board = [
+            ["r", "k", "b", "Q", "K", "b", "k", "r"],
+            ["p", "p", "p", "p", "p", "p", "p", "p"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"]
+            ["p", "p", "p", "p", "p", "p", "p", "p"],
+            ["r", "k", "b", "Q", "K", "b", "k", "r"]
         ]
-        let display = String(repeating: "_ _ _ _ _ _ _ _\n", count: 8)
+        let display = "r k b Q K b k r\n" + "p p p p p p p p\n"
+        + String(repeating: "_ _ _ _ _ _ _ _\n", count: 4)
+        + "p p p p p p p p\n" + "r k b Q K b k r\n"
         XCTAssertEqual(gameTest.board, board)
         XCTAssertEqual(gameTest.display, display)
         XCTAssertFalse(gameTest.checkMate)
         XCTAssertFalse(gameTest.check)
         let newBoard = [
-            ["X", "_", "_", "_", "_", "_", "_", "_"],
+            ["X", "k", "b", "Q", "K", "b", "k", "r"],
+            ["p", "p", "p", "p", "p", "p", "p", "p"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"],
-            ["_", "_", "_", "_", "_", "_", "_", "_"]
+            ["p", "p", "p", "p", "p", "p", "p", "p"],
+            ["r", "k", "b", "Q", "K", "b", "k", "r"]
         ]
-        let newDisplay = "X _ _ _ _ _ _ _\n" + String(repeating: "_ _ _ _ _ _ _ _\n", count: 7)
+        let newDisplay = "X k b Q K b k r\n" + "p p p p p p p p\n"
+        + String(repeating: "_ _ _ _ _ _ _ _\n", count: 4)
+        + "p p p p p p p p\n" + "r k b Q K b k r\n"
         gameTest.board[0][0] = "X"
         gameTest.checkMate = true
         gameTest.check = true
