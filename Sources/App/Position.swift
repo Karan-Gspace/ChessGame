@@ -1,6 +1,6 @@
 /// Position type to store the x and y position of the chess piece on the
 /// chess board.
-struct Position {
+struct Position: Equatable {
     /// The x position on the chess board.
     var x: Int
     /// The y position on the chess board.
