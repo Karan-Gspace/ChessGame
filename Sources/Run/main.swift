@@ -2,7 +2,7 @@ import App
 import Foundation
 
 /// chess game created.
-var game = Game()
+var game = ChessGame()
 
 /// Waiting for player's move.
 var playerMove: String
@@ -13,4 +13,5 @@ while !game.checkMate {
     print(game.display)
     playerMove = readLine()!
     print("Player's Move is \(playerMove)")
+    print("\n")
 }
