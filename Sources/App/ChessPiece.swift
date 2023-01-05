@@ -103,8 +103,8 @@ struct ChessPiece: PiecesProtocol {
         )
     }
 
-    /// Function which creates the two bishop Chess pieces and where it should be on the
-    /// board.
+    /// Function which creates the two bishop Chess pieces and where it should
+    /// be on the board.
     ///
     /// - Parameter colour: The colour of which the bishop pieces belongs to.
     /// - Returns: An array of the two Bishops.
@@ -137,8 +137,8 @@ struct ChessPiece: PiecesProtocol {
         ]
     }
 
-    /// Function which creates the two knight Chess pieces and where it should be on the
-    /// board.
+    /// Function which creates the two knight Chess pieces and where it should
+    /// be on the board.
     ///
     /// - Parameter colour: The colour of which the knight pieces belongs to.
     /// - Returns: An array of the two Knights.
@@ -230,7 +230,7 @@ struct ChessPiece: PiecesProtocol {
         var validMoves: [Position] = []
         if colour == PlayerColour.white {
             for i in 0..<8 {
-                position = Position(1, i)
+                position = Position(6, i)
                 validMoves.append(contentsOf: [Position(2, i), Position(3, i)])
                 pawns.append(
                     ChessPiece(
@@ -244,7 +244,7 @@ struct ChessPiece: PiecesProtocol {
             }
         } else if colour == PlayerColour.black {
             for i in 0..<8 {
-                position = Position(6, i)
+                position = Position(1, i)
                 validMoves.append(contentsOf: [Position(4, i), Position(5, i)])
                 pawns.append(
                     ChessPiece(
