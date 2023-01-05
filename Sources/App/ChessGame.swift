@@ -33,13 +33,13 @@ public struct ChessGame {
     }
 
     /// Definition of the array containing inactive pieces.
-    private var graveyard: [ChessPiece] = []
+    private var graveyard: [ChessPieceProtocol] = []
 
     /// Definition of white army active pieces.
-    private var whiteArmy: [ChessPiece] = []
+    private var whiteArmy: [ChessPieceProtocol] = []
 
     /// Definition of black army active pieces.
-    private var blackArmy: [ChessPiece] = []
+    private var blackArmy: [ChessPieceProtocol] = []
 
     /// Definition of the user input from alphabets to integers.
     private let alphabetToNum: [String: Int]
@@ -89,7 +89,7 @@ public struct ChessGame {
 
         switch state {
         case .whiteTurn:
-            var newWhiteArmy: [ChessPiece] = []
+            var newWhiteArmy: [ChessPieceProtocol] = []
             for piece in whiteArmy {
                 if piece.tag == tag && piece.currentPosition == sourceCoord && piece.validMoves.contains(destCoord) {
                     var newPiece = piece
@@ -101,7 +101,7 @@ public struct ChessGame {
             }
             whiteArmy = newWhiteArmy
         case .blackTurn:
-            var newBlackArmy: [ChessPiece] = []
+            var newBlackArmy: [ChessPieceProtocol] = []
             for piece in blackArmy {
                 if piece.tag == tag && piece.currentPosition == sourceCoord && piece.validMoves.contains(destCoord) {
                     var newPiece = piece
@@ -135,7 +135,7 @@ public struct ChessGame {
 
     /// Abstract this switch statement function through Polymorphism via structs
     /// and protocol conformance.
-    private func getValidMoves(_ piece: ChessPiece) -> [Position] {
+    private func getValidMoves(_ piece: ChessPieceProtocol) -> [Position] {
         var validMoves: [Position] = []
         switch piece.name {
         case .king:
@@ -203,14 +203,14 @@ public struct ChessGame {
         return Position(xCoord!, yCoord!)
     }
 
-    private func createArmy(_ colour: PlayerColour) -> [ChessPiece] {
-        var army: [ChessPiece] = []
-        let king = ChessPiece.createKing(colour: colour)
-        let queen = ChessPiece.createQueen(colour: colour)
-        let bishops = ChessPiece.createBishops(colour: colour)
-        let knights = ChessPiece.createKnights(colour: colour)
-        let rooks = ChessPiece.createRooks(colour: colour)
-        let pawns = ChessPiece.createPawns(colour: colour)
+    private func createArmy(_ colour: PlayerColour) -> [ChessPieceProtocol] {
+        var army: [ChessPieceProtocol] = []
+        let king = ChessGame.createKing(colour: colour)
+        let queen = ChessGame.createQueen(colour: colour)
+        let bishops = ChessGame.createBishops(colour: colour)
+        let knights = ChessGame.createKnights(colour: colour)
+        let rooks = ChessGame.createRooks(colour: colour)
+        let pawns = ChessGame.createPawns(colour: colour)
         army.append(king)
         army.append(queen)
         army.append(contentsOf: bishops)
@@ -218,6 +218,155 @@ public struct ChessGame {
         army.append(contentsOf: rooks)
         army.append(contentsOf: pawns)
         return army
+    }
+
+    /// Function which creates a King Chess piece and where it should be on the
+    /// board.
+    ///
+    /// - Parameter colour: The colour of which the king piece belongs to.
+    /// - Returns: The King chess piece.
+    private static func createKing(
+        colour: PlayerColour
+    ) -> ChessPieceProtocol {
+        var startingPosition = Position(0, 0)
+        if colour == PlayerColour.black {
+            startingPosition = Position(0, 4)
+        }
+        if colour == PlayerColour.white {
+            startingPosition = Position(7, 4)
+        }
+        return King(colour: colour, currentPosition: startingPosition)
+    }
+
+    /// Function which creates a Queen Chess piece and where it should be on the
+    /// board.
+    ///
+    /// - Parameter colour: The colour of which the queen piece belongs to.
+    /// - Returns: The Queen chess piece.
+    private static func createQueen(
+        colour: PlayerColour
+    ) -> ChessPieceProtocol {
+        var startingPosition = Position(0, 0)
+        if colour == PlayerColour.black {
+            startingPosition = Position(0, 3)
+        }
+        if colour == PlayerColour.white {
+            startingPosition = Position(7, 3)
+        }
+        return Queen(colour: colour, currentPosition: startingPosition)
+    }
+
+    /// Function which creates the two bishop Chess pieces and where it should
+    /// be on the board.
+    ///
+    /// - Parameter colour: The colour of which the bishop pieces belongs to.
+    /// - Returns: An array of the two Bishops.
+    private static func createBishops(
+        colour: PlayerColour
+    ) -> [ChessPieceProtocol] {
+        var leftStartingPosition = Position(0, 0)
+        var rightStartingPosition = Position(0, 0)
+        if colour == PlayerColour.black {
+            leftStartingPosition = Position(0, 2)
+            rightStartingPosition = Position(0, 5)
+        }
+        if colour == PlayerColour.white {
+            leftStartingPosition = Position(7, 2)
+            rightStartingPosition = Position(7, 5)
+        }
+        return [
+            Bishop(colour: colour, currentPosition: leftStartingPosition),
+            Bishop(colour: colour, currentPosition: rightStartingPosition)
+        ]
+    }
+
+    /// Function which creates the two knight Chess pieces and where it should
+    /// be on the board.
+    ///
+    /// - Parameter colour: The colour of which the knight pieces belongs to.
+    /// - Returns: An array of the two Knights.
+    private static func createKnights(
+        colour: PlayerColour
+    ) -> [ChessPieceProtocol] {
+        var leftStartingPosition = Position(0, 0)
+        var leftValidMoves: [Position] = []
+        var rightStartingPosition = Position(0, 0)
+        var rightValidMoves: [Position] = []
+        if colour == PlayerColour.black {
+            leftStartingPosition = Position(0, 1)
+            leftValidMoves.append(Position(2, 0))
+            leftValidMoves.append(Position(2, 2))
+            rightStartingPosition = Position(0, 6)
+            rightValidMoves.append(Position(2, 5))
+            rightValidMoves.append(Position(2, 7))
+
+        }
+        if colour == PlayerColour.white {
+            leftStartingPosition = Position(7, 1)
+            leftValidMoves.append(Position(5, 2))
+            leftValidMoves.append(Position(5, 0))
+            rightStartingPosition = Position(7, 6)
+            rightValidMoves.append(Position(5, 5))
+            rightValidMoves.append(Position(5, 7))
+        }
+        return [
+            Knight(colour: colour, currentPosition: leftStartingPosition, validMoves: leftValidMoves),
+            Knight(colour: colour, currentPosition: rightStartingPosition, validMoves: rightValidMoves)
+        ]
+    }
+
+    /// Function which creates the two knight Chess pieces and where it should
+    /// be on the board.
+    ///
+    /// - Parameter colour: The colour of which the knight pieces belongs to.
+    /// - Returns: An array of the two Knights.
+    private static func createRooks(
+        colour: PlayerColour
+    ) -> [ChessPieceProtocol] {
+        var leftStartingPosition = Position(0, 0)
+        var rightStartingPosition = Position(0, 0)
+        if colour == PlayerColour.black {
+            leftStartingPosition = Position(0, 0)
+            rightStartingPosition = Position(0, 7)
+
+        }
+        if colour == PlayerColour.white {
+            leftStartingPosition = Position(7, 0)
+            rightStartingPosition = Position(7, 7)
+        }
+        return [
+            Rook(colour: colour, currentPosition: leftStartingPosition),
+            Rook(colour: colour, currentPosition: rightStartingPosition)
+        ]
+    }
+
+    /// Function which creates the eight pawns Chess pieces and where it should
+    /// be on the board.
+    ///
+    /// - Parameter colour: The colour of which the pawns pieces belongs to.
+    /// - Returns: An array of the eight pawns Knights.
+    private static func createPawns(
+        colour: PlayerColour
+    ) -> [ChessPieceProtocol] {
+        var pawns: [ChessPieceProtocol] = []
+        var position = Position(0, 0)
+        var validMoves: [Position] = []
+        if colour == PlayerColour.white {
+            for i in 0..<8 {
+                position = Position(6, i)
+                validMoves.append(contentsOf: [Position(5, i), Position(4, i)])
+                pawns.append(Pawn(colour: colour, currentPosition: position, validMoves: validMoves))
+            }
+        }
+        if colour == PlayerColour.black {
+            for i in 0..<8 {
+                validMoves = []
+                position = Position(1, i)
+                validMoves.append(contentsOf: [Position(2, i), Position(3, i)])
+                pawns.append(Pawn(colour: colour, currentPosition: position, validMoves: validMoves))
+            }
+        }
+        return pawns
     }
 
 }
