@@ -4,9 +4,9 @@ This is a swift package which runs a game of chess as an application.
 
 
 Chess Game success criteria
-DONE - Display an 8 x 8 game board
-	Created GameBoard struct
-	Created GameBoard Tests (GettersAndSetters, Init, Equality)
+	DONE - Display an 8 x 8 game board
+	DONE -Created GameBoard struct
+	DONE - Created GameBoard Tests (GettersAndSetters, Init, Equality)
 
 DONE - Display pieces on the game board
 	DONE - Create pieces protocol
@@ -19,10 +19,10 @@ DONE - Display pieces on the game board
 	DONE - Create Position tests (init, gettersAndSetters, Equality)
 
 - move pieces on the game board
-
 	DONE - Get user input and decode it
-	- update chess piece current position
-	- update the board
+	DONE - update chess piece current position
+	DONE - update the board
+	- Get pieces to move following the rules of the piece
 
 - Game states 
 	- Implement a (check, checkMate, resign, errorStates)

@@ -68,7 +68,6 @@ struct ChessPiece: PiecesProtocol {
         var startingPosition: Position = Position(0, 0)
         if colour == PlayerColour.black {
             startingPosition = Position(0, 4)
-
         } else if colour == PlayerColour.white {
             startingPosition = Position(7, 4)
         }
@@ -91,7 +90,6 @@ struct ChessPiece: PiecesProtocol {
         var startingPosition: Position = Position(0, 0)
         if colour == PlayerColour.black {
             startingPosition = Position(0, 3)
-
         } else if colour == PlayerColour.white {
             startingPosition = Position(7, 3)
         }
@@ -116,7 +114,6 @@ struct ChessPiece: PiecesProtocol {
         if colour == PlayerColour.black {
             leftStartingPosition = Position(0, 2)
             rightStartingPosition = Position(0, 5)
-
         } else if colour == PlayerColour.white {
             leftStartingPosition = Position(7, 2)
             rightStartingPosition = Position(7, 5)
@@ -230,8 +227,9 @@ struct ChessPiece: PiecesProtocol {
         var validMoves: [Position] = []
         if colour == PlayerColour.white {
             for i in 0..<8 {
+                validMoves = []
                 position = Position(6, i)
-                validMoves.append(contentsOf: [Position(2, i), Position(3, i)])
+                validMoves.append(contentsOf: [Position(5, i), Position(4, i)])
                 pawns.append(
                     ChessPiece(
                         name: .pawn,
@@ -244,8 +242,9 @@ struct ChessPiece: PiecesProtocol {
             }
         } else if colour == PlayerColour.black {
             for i in 0..<8 {
+                validMoves = []
                 position = Position(1, i)
-                validMoves.append(contentsOf: [Position(4, i), Position(5, i)])
+                validMoves.append(contentsOf: [Position(2, i), Position(3, i)])
                 pawns.append(
                     ChessPiece(
                         name: .pawn,
