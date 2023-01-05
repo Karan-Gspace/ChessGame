@@ -86,48 +86,113 @@ public struct ChessGame {
         let tag = String(input[start])
         let sourceCoord = convertAlphabetToCoordinates(source)
         let destCoord = convertAlphabetToCoordinates(destination)
+
         switch state {
-            case .whiteTurn:
-                var newWhiteArmy: [ChessPiece] = []
-                for piece in whiteArmy {
-                    if piece.tag == tag && piece.currentPosition == sourceCoord {
-                        var newPiece = piece
-                        newPiece.currentPosition = destCoord
-                        newWhiteArmy.append(newPiece)
-                    } else {
-                        newWhiteArmy.append(piece)
-                    }
+        case .whiteTurn:
+            var newWhiteArmy: [ChessPiece] = []
+            for piece in whiteArmy {
+                if piece.tag == tag && piece.currentPosition == sourceCoord && piece.validMoves.contains(destCoord) {
+                    var newPiece = piece
+                    newPiece.currentPosition = destCoord
+                    newWhiteArmy.append(newPiece)
+                } else {
+                    newWhiteArmy.append(piece)
                 }
-                whiteArmy = newWhiteArmy
-            case .blackTurn:
-                var newBlackArmy: [ChessPiece] = []
-                for piece in blackArmy {
-                    if piece.tag == tag && piece.currentPosition == sourceCoord {
-                        var newPiece = piece
-                        newPiece.currentPosition = destCoord
-                        newBlackArmy.append(newPiece)
-                    }
-                    else {
-                        newBlackArmy.append(piece)
-                    }
+            }
+            whiteArmy = newWhiteArmy
+        case .blackTurn:
+            var newBlackArmy: [ChessPiece] = []
+            for piece in blackArmy {
+                if piece.tag == tag && piece.currentPosition == sourceCoord && piece.validMoves.contains(destCoord) {
+                    var newPiece = piece
+                    newPiece.currentPosition = destCoord
+                    newBlackArmy.append(newPiece)
+                } else {
+                    newBlackArmy.append(piece)
                 }
-                blackArmy = newBlackArmy
+            }
+            blackArmy = newBlackArmy
         }
         updateBoard()
     }
 
+    /// Function which updates the state of the board.
     private mutating func updateBoard() {
         for i in 0..<board.count {
             for j in 0..<board.count {
                 self.board[i][j] = "_"
             }
         }
-        for piece in whiteArmy {
+        for var piece in whiteArmy {
             self.board[piece.currentPosition.x][piece.currentPosition.y] = piece.tag
+            piece.validMoves = getValidMoves(piece)
         }
-        for piece in blackArmy {
+        for var piece in blackArmy {
             self.board[piece.currentPosition.x][piece.currentPosition.y] = piece.tag
+            piece.validMoves = getValidMoves(piece)
         }
+    }
+
+    private func getValidMoves(_ piece: ChessPiece) -> [Position] {
+        var validMoves: [Position] = []
+        switch piece.name {
+        case .king:
+            validMoves.append(
+                contentsOf: [
+                    Position(piece.currentPosition.x + 1, piece.currentPosition.y + 1),
+                    Position(piece.currentPosition.x - 1, piece.currentPosition.y - 1),
+                    Position(piece.currentPosition.x + 1, piece.currentPosition.y - 1),
+                    Position(piece.currentPosition.x - 1, piece.currentPosition.y + 1)
+                ]
+            )
+        case .queen:
+        for i in piece.currentPosition.x..<board.count + 1 {
+            validMoves.append(Position(i + 1, piece.currentPosition.y + i + 1))
+            validMoves.append(Position(i - 1, piece.currentPosition.y - i - 1))
+            validMoves.append(Position(piece.currentPosition.x + i + 1, i + 1))
+            validMoves.append(Position(piece.currentPosition.x - i - 1, i - 1))
+        }
+        for i in piece.currentPosition.x..<board.count + 1 {
+            validMoves.append(Position(i + 1, piece.currentPosition.y))
+            validMoves.append(Position(i - 1, piece.currentPosition.y))
+            validMoves.append(Position(piece.currentPosition.x, i + 1))
+            validMoves.append(Position(piece.currentPosition.x, i - 1))
+        }
+        case .bishop:
+        for i in piece.currentPosition.x..<board.count + 1 {
+            validMoves.append(Position(i + 1, piece.currentPosition.y + i + 1))
+            validMoves.append(Position(i - 1, piece.currentPosition.y - i - 1))
+            validMoves.append(Position(piece.currentPosition.x + i + 1, i + 1))
+            validMoves.append(Position(piece.currentPosition.x - i - 1, i - 1))
+        }
+        case .knight:
+        validMoves.append(
+            contentsOf: [
+                Position(piece.currentPosition.x + 2, piece.currentPosition.y - 1),
+                Position(piece.currentPosition.x + 2, piece.currentPosition.y + 1),
+                Position(piece.currentPosition.x - 2, piece.currentPosition.y - 1),
+                Position(piece.currentPosition.x - 2, piece.currentPosition.y + 1),
+                Position(piece.currentPosition.x + 1, piece.currentPosition.y - 2),
+                Position(piece.currentPosition.x + 1, piece.currentPosition.y + 2),
+                Position(piece.currentPosition.x - 1, piece.currentPosition.y + 2),
+                Position(piece.currentPosition.x - 1, piece.currentPosition.y - 2)
+            ]
+        )
+        case .rook:
+        for i in piece.currentPosition.x..<board.count + 1 {
+            validMoves.append(Position(i + 1, piece.currentPosition.y))
+            validMoves.append(Position(i - 1, piece.currentPosition.y))
+            validMoves.append(Position(piece.currentPosition.x, i + 1))
+            validMoves.append(Position(piece.currentPosition.x, i - 1))
+        }
+        case .pawn:
+        validMoves.append(
+            contentsOf: [
+                Position(piece.currentPosition.x + 1, piece.currentPosition.y)
+            ]
+        )
+        }
+        return validMoves
     }
 
     private func convertAlphabetToCoordinates(_ inputPosition: String) -> Position {
