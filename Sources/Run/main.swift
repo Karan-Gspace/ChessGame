@@ -12,7 +12,13 @@ print("\n")
 while !game.checkMate {
     print(game.display)
     playerMove = readLine()!
-    print("Player's Move is \(playerMove)")
-    game.move(playerMove)
+    print("White's Move is \(playerMove)")
+    game.getCommandInfo(playerMove, Turn.whiteTurn)
+    print("\n")
+
+    print(game.display)
+    playerMove = readLine()!
+    print("Black's Move is \(playerMove)")
+    game.getCommandInfo(playerMove, Turn.blackTurn)
     print("\n")
 }

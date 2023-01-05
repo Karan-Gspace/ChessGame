@@ -35,16 +35,23 @@ public struct ChessGame {
     /// Definition of the array containing inactive pieces.
     private var graveyard: [ChessPiece] = []
 
+    /// Definition of white army active pieces.
+    private var whiteArmy: [ChessPiece] = []
+
+    /// Definition of black army active pieces.
+    private var blackArmy: [ChessPiece] = []
+
+    /// Definition of the user input from alphabets to integers.
     private let alphabetToNum: [String: Int]
     = [
         "a": 0,
         "b": 1,
         "c": 2,
-        "e": 3,
-        "f": 4,
-        "g": 5,
-        "h": 6,
-        "i": 7
+        "d": 3,
+        "e": 4,
+        "f": 5,
+        "g": 6,
+        "h": 7
     ]
 
     /// Creates a new Chess Game.
@@ -60,26 +67,70 @@ public struct ChessGame {
             ["_", "_", "_", "_", "_", "_", "_", "_"],
             ["_", "_", "_", "_", "_", "_", "_", "_"]
         ]
-        let whiteArmy = createArmy(.white)
-        let blackArmy = createArmy(.black)
-        insertArmiesOntoBoard(whiteArmy, blackArmy)
+        self.whiteArmy = createArmy(.white)
+        self.blackArmy = createArmy(.black)
+        updateBoard()
     }
 
     /// Move chess piece on the board function.
     ///
-    /// - Parameter playerInput: 
-    public func move(_ playerInput: String) {
-        let start = playerInput.startIndex
-        let firstBreak = playerInput.index(start, offsetBy: 3)
-        let secondBreak = playerInput.index(start, offsetBy: 5)
-        let command = playerInput[start]
-        let source = String(playerInput[playerInput.index(after: start)..<firstBreak])
-        let destination = String(playerInput[secondBreak...])
+    /// - Parameter playerInput: The prompted command to move a chess piece.
+    public mutating func getCommandInfo(_ input: String, _ state: Turn) {
+        let start = input.startIndex
+        let firstBreak = input.index(start, offsetBy: 3)
+        let secondBreak = input.index(start, offsetBy: 5)
+        let source = String(input[input.index(after: start)..<firstBreak])
+        let destination = String(input[secondBreak...])
 
-
+        // Info
+        let tag = String(input[start])
+        let sourceCoord = convertAlphabetToCoordinates(source)
+        let destCoord = convertAlphabetToCoordinates(destination)
+        switch state {
+            case .whiteTurn:
+                var newWhiteArmy: [ChessPiece] = []
+                for piece in whiteArmy {
+                    if piece.tag == tag && piece.currentPosition == sourceCoord {
+                        var newPiece = piece
+                        newPiece.currentPosition = destCoord
+                        newWhiteArmy.append(newPiece)
+                    } else {
+                        newWhiteArmy.append(piece)
+                    }
+                }
+                whiteArmy = newWhiteArmy
+            case .blackTurn:
+                var newBlackArmy: [ChessPiece] = []
+                for piece in blackArmy {
+                    if piece.tag == tag && piece.currentPosition == sourceCoord {
+                        var newPiece = piece
+                        newPiece.currentPosition = destCoord
+                        newBlackArmy.append(newPiece)
+                    }
+                    else {
+                        newBlackArmy.append(piece)
+                    }
+                }
+                blackArmy = newBlackArmy
+        }
+        updateBoard()
     }
 
-    private func convertAlphabetToCoordinates(inputPosition: String) -> Position {
+    private mutating func updateBoard() {
+        for i in 0..<board.count {
+            for j in 0..<board.count {
+                self.board[i][j] = "_"
+            }
+        }
+        for piece in whiteArmy {
+            self.board[piece.currentPosition.x][piece.currentPosition.y] = piece.tag
+        }
+        for piece in blackArmy {
+            self.board[piece.currentPosition.x][piece.currentPosition.y] = piece.tag
+        }
+    }
+
+    private func convertAlphabetToCoordinates(_ inputPosition: String) -> Position {
         let xCoord = alphabetToNum[String(inputPosition[inputPosition.startIndex])]
         let yCoord = Int(String(inputPosition[inputPosition.index(after: inputPosition.startIndex)]))
         return Position(xCoord!, yCoord!)
@@ -100,18 +151,6 @@ public struct ChessGame {
         army.append(contentsOf: rooks)
         army.append(contentsOf: pawns)
         return army
-    }
-
-    private mutating func insertArmiesOntoBoard(
-        _ whiteArmy: [ChessPiece],
-        _ blackArmy: [ChessPiece]
-        ) {
-        for piece in whiteArmy {
-            self.board[piece.currentPosition.x][piece.currentPosition.y] = piece.tag
-        }
-        for piece in blackArmy {
-            self.board[piece.currentPosition.x][piece.currentPosition.y] = piece.tag
-        }
     }
 
 }
