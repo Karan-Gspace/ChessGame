@@ -133,6 +133,8 @@ public struct ChessGame {
         }
     }
 
+    /// Abstract this switch statement function through Polymorphism via structs
+    /// and protocol conformance.
     private func getValidMoves(_ piece: ChessPiece) -> [Position] {
         var validMoves: [Position] = []
         switch piece.name {
